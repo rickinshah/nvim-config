@@ -8,7 +8,9 @@ return {
       require('catppuccin').setup {
         flavour = 'mocha',
       }
-      vim.cmd.colorscheme 'catppuccin'
+      vim.defer_fn(function()
+        vim.cmd.colorscheme 'catppuccin'
+      end, 50)
     end,
   },
 }
