@@ -121,8 +121,17 @@ vim.opt.showmode = false
 --  Remove this option if you want your OS clipboard to remain independent.
 --  See `:help 'clipboard'`
 vim.schedule(function()
-  vim.opt.clipboard = 'unnamedplus'
+  vim.opt.clipboard = ''
 end)
+
+vim.keymap.set('n', 'y', '"+y', { noremap = true, expr = false })
+vim.keymap.set('v', 'y', '"+y', { noremap = true })
+vim.keymap.set('n', 'Y', '"+Y', { noremap = true })
+
+vim.keymap.set('n', '<leader>p', '"+p', { noremap = true })
+vim.keymap.set('n', '<leader>P', '"+P', { noremap = true })
+vim.keymap.set('v', '<leader>p', '"+p', { noremap = true })
+vim.keymap.set('i', '<C-p>', '<C-r>+', { noremap = true })
 
 -- Enable break indent
 vim.opt.breakindent = true
@@ -151,7 +160,7 @@ vim.opt.splitbelow = true
 --  See `:help 'list'`
 --  and `:help 'listchars'`
 vim.opt.list = true
-vim.opt.listchars = { tab = '| ', trail = '·', nbsp = '␣' }
+vim.opt.listchars = { tab = '│ ', trail = '·', nbsp = '␣' }
 
 -- Preview substitutions live, as you type!
 vim.opt.inccommand = 'split'
@@ -755,7 +764,7 @@ require('lazy').setup({
         -- Disable "format_on_save lsp_fallback" for languages that don't
         -- have a well standardized coding style. You can add additional
         -- languages here or re-enable it for the disabled ones.
-        local disable_filetypes = { c = true, cpp = true }
+        local disable_filetypes = {}
         if disable_filetypes[vim.bo[bufnr].filetype] then
           return nil
         else
@@ -767,6 +776,10 @@ require('lazy').setup({
       end,
       formatters_by_ft = {
         lua = { 'stylua' },
+        c = { 'clang-format' },
+        go = { 'gofumpt', 'goimports' },
+        sql = { 'pg_format' },
+        py = { 'pyright' },
         -- Conform can also run multiple formatters sequentially
         -- python = { "isort", "black" },
         --
