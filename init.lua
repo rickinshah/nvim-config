@@ -777,7 +777,7 @@ require('lazy').setup({
       formatters_by_ft = {
         lua = { 'stylua' },
         c = { 'clang-format' },
-        go = { 'gofumpt', 'goimports' },
+        go = { 'goimports' },
         sql = { 'pg_format' },
         py = { 'pyright' },
         -- Conform can also run multiple formatters sequentially
